@@ -43,6 +43,14 @@ const comments = (state = [{}], action) => {
       // comment and add the returned copy
       newState = state.filter(oc => oc.id !== comment.id);
       return newState.push(comment);
+    case RECEIVE_DELETE_COMMENT:
+      // Update the state to remove the existing comment as long
+      // as the returned item shows deleted or parentDeleted
+      // as being true
+      if (comment.deleted || comment.parentDeleted) {
+        return state.filter(oc => oc.id !== comment.id);
+      }
+      return state;
     default:
       return state;
   }

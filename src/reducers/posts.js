@@ -48,6 +48,14 @@ const posts = (state = [{}], action) => {
       // post and add the returned copy
       newState = state.filter(op => op.id !== post.id);
       return newState.push(post);
+    case RECEIVE_DELETE_POST:
+      // Update the state to remove the existing post as long
+      // as the returned item shows deleted as being true
+      if (post.deleted) {
+        return state.filter(op => op.id !== post.id);
+      }
+      return state;
+
     default:
       return state;
   }

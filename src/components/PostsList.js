@@ -1,11 +1,17 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getAllPosts } from "../actions/";
+import { getAllPosts, getCategories } from "../actions/";
 
 class PostsList extends Component {
   componentDidMount() {
-    getAllPosts();
+    this.props.allCategories();
+    this.props.allPosts();
+  }
+
+  componentWillReceiveProps(props) {
+    this.props = props;
+    console.log("props updated", this.props);
   }
 
   render = () => {
@@ -13,13 +19,14 @@ class PostsList extends Component {
   };
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps({ posts, categories }) {
+  return { posts, categories };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getAllPosts: () => dispatch(getAllPosts())
+    allPosts: () => dispatch(getAllPosts()),
+    allCategories: () => dispatch(getCategories())
   };
 }
 
