@@ -28,6 +28,7 @@ const comments = (state = [{}], action) => {
   // Actions will only ever return "comments" or "comment" properties,
   // and never both at the same time
   const { comments, comment } = action;
+  let newState;
 
   switch (action.type) {
     case RECEIVE_GET_POST_COMMENTS:
@@ -35,12 +36,12 @@ const comments = (state = [{}], action) => {
       return comments;
     case RECEIVE_ADD_POST_COMMENT:
       // Update the state to add the new comment
-      let newState = state.splice(0);
+      newState = state.splice(0);
       return newState.push(comment);
     case RECEIVE_UPDATE_COMMENT:
       // Update the state to remove the existing copy of the specified
       // comment and add the returned copy
-      let newState = state.filter(oc => oc.id !== comment.id);
+      newState = state.filter(oc => oc.id !== comment.id);
       return newState.push(comment);
     default:
       return state;

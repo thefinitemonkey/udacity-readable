@@ -64,10 +64,10 @@ export const getPost = id => dispatch => {
 };
 
 export const votePost = body => dispatch => {
-  Api.votePost(body).then(post => dispatch(receiveVotePost(post)));
+  Api.votePost(body).then(post => dispatch(receiveUpdatePost(post)));
 };
 export const editPost = body => dispatch => {
-  Api.editPost(body).then(post => dispatch(receiveEditPost(post)));
+  Api.editPost(body).then(post => dispatch(receiveUpdatePost(post)));
 };
 
 export const receiveUpdatePost = post => {
@@ -89,8 +89,8 @@ export const receiveDeletePost = post => {
 };
 
 export const getPostComments = id => dispatch => {
-  Api.getPostComments(id).then(comment =>
-    dispatch(receivePostComments(comments))
+  Api.getPostComments(id).then(comments =>
+    dispatch(receiveGetPostComments(comments))
   );
 };
 
@@ -128,7 +128,7 @@ export const editComment = body => dispatch => {
 
 export const receiveUpdateComment = comment => {
   return {
-    type: RECEIVE_EDIT_COMMENT,
+    type: RECEIVE_UPDATE_COMMENT,
     comment
   };
 };
