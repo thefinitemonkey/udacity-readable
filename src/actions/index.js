@@ -1,33 +1,14 @@
 import * as Api from "../util/Api.js";
 
-export const GET_CATEGORIES = "GET_CATEGORIES";
 export const RECEIVE_GET_CATEGORIES = "RECEIVE_GET_CATEGORIES";
-export const GET_CATEGORY_POSTS = "GET_CATEGORY_POSTS";
 export const RECEIVE_GET_CATEGORY_POSTS = "RECEIVE_GET_CATEGORY_POSTS";
-export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const RECEIVE_GET_ALL_POSTS = "RECEIVE_GET_ALL_POSTS";
-export const ADD_POST = "ADD_POST";
-export const RECEIVE_ADD_POST = "RECEIVE_ADD_POST";
-export const GET_POST = "GET_POST";
-export const RECEIVE_GET_POST = "RECEIVE_GET_POST";
-export const VOTE_POST = "VOTE_POST";
-export const RECEIVE_VOTE_POST = "RECEIVE_VOTE_POST";
-export const RECEIVE_UPDATE_POST = "RECEIVE_UPDATE_POST";
-export const EDIT_POST = "EDIT_POST";
-export const RECEIVE_EDIT_POST = "RECEIVE_EDIT_POST";
-export const DELETE_POST = "DELETE_POST";
+export const RECEIVE_ADD_POST = "RECEIVE_GET_ALL_POSTS";
 export const RECEIVE_DELETE_POST = "RECEIVE_DELETE_POST";
-export const GET_POST_COMMENTS = "GET_POST_COMMENTS";
+export const RECEIVE_UPDATE_POST = "RECEIVE_UPDATE_POST";
 export const RECEIVE_GET_POST_COMMENTS = "RECEIVE_GET_POST_COMMENTS";
-export const ADD_POST_COMMENT = "ADD_POST_COMMENT";
 export const RECEIVE_ADD_POST_COMMENT = "RECEIVE_ADD_POST_COMMENT";
-export const GET_COMMENT = "GET_COMMENT";
-export const RECEIVE_GET_COMMENT = "RECEIVE_GET_COMMENT";
-export const VOTE_COMMENT = "VOTE_COMMENT";
-export const RECEIVE_VOTE_COMMENT = "RECEIVE_VOTE_COMMENT";
-export const EDIT_COMMENT = "EDIT_COMMENT";
-export const RECEIVE_EDIT_COMMENT = "RECEIVE_EDIT_COMMENT";
-export const DELETE_COMMENT = "DELETE_COMMENT";
+export const RECEIVE_UPDATE_COMMENT = "RECEIVE_UPDATE_COMMENT";
 export const RECEIVE_DELETE_COMMENT = "RECEIVE_DELETE_COMMENT";
 
 export const getCategories = () => dispatch => {
@@ -134,32 +115,18 @@ export const receiveAddPostComment = comment => {
 };
 
 export const getComment = id => dispatch => {
-  Api.getComment(id).then(comment => dispatch(receiveGetComment(comment)));
-};
-
-export const receiveGetComment = comment => {
-  return {
-    type: RECEIVE_GET_COMMENT,
-    comment
-  };
+  Api.getComment(id).then(comment => dispatch(receiveUpdateComment(comment)));
 };
 
 export const voteComment = body => dispatch => {
-  Api.voteComment(body).then(comment => dispatch(receiveVoteComment(comment)));
-};
-
-export const receiveVoteComment = comment => {
-  return {
-    type: RECEIVE_VOTE_COMMENT,
-    comment
-  };
+  Api.voteComment(body).then(comment => dispatch(receiveUpdateComment(comment)));
 };
 
 export const editComment = body => dispatch => {
-  Api.editComment(body).then(comment => dispatch(receiveEditComment(comment)));
+  Api.editComment(body).then(comment => dispatch(receiveUpdateComment(comment)));
 };
 
-export const receiveEditComment = comment => {
+export const receiveUpdateComment = comment => {
   return {
     type: RECEIVE_EDIT_COMMENT,
     comment

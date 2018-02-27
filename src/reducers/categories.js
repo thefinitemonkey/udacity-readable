@@ -19,3 +19,6 @@ const categories = (state = { categories: [] }, action) => {
       return state;
   }
 };
+
+
+export default categories;
