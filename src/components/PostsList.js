@@ -1,7 +1,8 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllPosts, getCategories } from "../actions/";
+import PostSummary from "./PostSummary";
 
 class PostsList extends Component {
   componentDidMount() {
@@ -15,7 +16,13 @@ class PostsList extends Component {
   }
 
   render = () => {
-    return null;
+    return (
+      <div className="post-list">
+        {this.props.posts.map(post => (
+          <PostSummary post={post} />
+        ))}
+      </div>
+    );
   };
 }
 
