@@ -12,6 +12,7 @@ export const GET_POST = "GET_POST";
 export const RECEIVE_GET_POST = "RECEIVE_GET_POST";
 export const VOTE_POST = "VOTE_POST";
 export const RECEIVE_VOTE_POST = "RECEIVE_VOTE_POST";
+export const RECEIVE_UPDATE_POST = "RECEIVE_UPDATE_POST";
 export const EDIT_POST = "EDIT_POST";
 export const RECEIVE_EDIT_POST = "RECEIVE_EDIT_POST";
 export const DELETE_POST = "DELETE_POST";
@@ -78,34 +79,19 @@ export const receiveAddPost = post => {
 };
 
 export const getPost = id => dispatch => {
-  Api.getPost(id).then(post => dispatch(receiveGetPost(post)));
-};
-
-export const receiveGetPost = post => {
-  return {
-    type: RECEIVE_GET_POST,
-    post
-  };
+  Api.getPost(id).then(post => dispatch(receiveUpdatePost(post)));
 };
 
 export const votePost = body => dispatch => {
   Api.votePost(body).then(post => dispatch(receiveVotePost(post)));
 };
-
-export const receiveVotePost = post => {
-  return {
-    type: RECEIVE_VOTE_POST,
-    post
-  };
-};
-
 export const editPost = body => dispatch => {
   Api.editPost(body).then(post => dispatch(receiveEditPost(post)));
 };
 
-export const receiveEditPost = post => {
+export const receiveUpdatePost = post => {
   return {
-    type: RECEIVE_EDIT_POST,
+    type: RECEIVE_UPDATE_POST,
     post
   };
 };
