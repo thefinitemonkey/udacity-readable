@@ -23,7 +23,7 @@ Populated state for posts looks like
 }]
 */
 
-const posts = (state = [{}], action) => {
+const posts = (state = [], action) => {
   // Actions will only ever return "posts" or "post" properties,
   // and never both at the same time
   const { posts, post } = action;

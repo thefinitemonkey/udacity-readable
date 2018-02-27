@@ -14,7 +14,7 @@ const categories = (state = { categories: [] }, action) => {
   switch (action.type) {
     case RECEIVE_GET_CATEGORIES:
       // Update the state with the new list of categories
-      return { ...state, categories };
+      return { categories };
     default:
       return state;
   }

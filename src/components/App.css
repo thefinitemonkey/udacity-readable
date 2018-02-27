@@ -2,6 +2,17 @@
   margin: 10px 15px 10px 15px;
 }
 
+.category-selector {
+  display:flex;
+  flex-direction: row-reverse;
+  margin: 10px 15px 25px 15px;
+}
+
+.category-selector-label {
+  font-size: 0.8em;
+  margin: 0 10px 0 0;
+}
+
 .post-summary {
   margin: 0 0 30px 0;
 }
