@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllPosts, getCategories } from "../actions/";
 import PostSummary from "./PostSummary";
@@ -10,6 +10,7 @@ class PostsList extends Component {
   componentDidMount() {
     this.props.allCategories();
     this.props.allPosts();
+    console.log("props", this.props);
   }
 
   componentWillReceiveProps(props) {
@@ -17,9 +18,9 @@ class PostsList extends Component {
     console.log("props updated", this.props);
   }
 
-  handleChangeCategory = data => {
+  handleChangeCategory = data => withRouter(({history})=> {
     this.setState({ category: data });
-  };
+  });
 
   renderPosts = () => {
     // If not posts then return a null
@@ -44,7 +45,7 @@ class PostsList extends Component {
       <div className="post-list">
         <div className="category-selector">
           <div>
-            <label className="category-selector-label" for="categorySelector">
+            <label className="category-selector-label" htmlFor="categorySelector">
               Filter:
             </label>
             <select
@@ -68,8 +69,8 @@ class PostsList extends Component {
   };
 }
 
-function mapStateToProps({ posts, categories }) {
-  return { posts, categories: categories.categories.categories };
+function mapStateToProps({ posts, categories, match, location, history }) {
+  return { posts, categories: categories.categories.categories, match, location, history };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -79,4 +80,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostsList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostsList));

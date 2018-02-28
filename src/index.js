@@ -6,6 +6,9 @@ import App from "./components/App";
 //import registerServiceWorker from "./registerServiceWorker";
 import store from "./store/store.js";
 import { BrowserRouter } from "react-router-dom";
+import createBrowserHistory from 'history/createBrowserHistory'
+
+const history = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store()}>
