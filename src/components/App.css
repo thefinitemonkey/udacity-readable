@@ -144,7 +144,7 @@ h3 {
   font-size: 0;
 }
 
-.button {
+.save-button {
   background-color: #2e7d32; /* Green */
   border: none;
   color: white;
@@ -153,4 +153,5 @@ h3 {
   text-decoration: none;
   display: inline-block;
   font-size: 0.8em;
+  cursor: pointer;
 }

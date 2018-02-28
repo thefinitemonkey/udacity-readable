@@ -14,13 +14,7 @@ class EditDialog extends Component {
     item: { ...this.props.modalItem } || {}
   };
 
-  constructor(props) {
-    super(props);
-    console.log("props", props);
-  }
-
   componentWillReceiveProps(props) {
-    console.log("props", props);
     this.props = props;
     let catname = "none";
     if (this.props.modalItem) catname = this.props.modalItem.category;
@@ -156,7 +150,7 @@ class EditDialog extends Component {
                   />
                 </div>
                 <div>
-                  <button className="button" onClick={this.handleSaveChanges}>
+                  <button className="save-button" onClick={this.handleSaveChanges}>
                     Save changes
                   </button>
                 </div>
