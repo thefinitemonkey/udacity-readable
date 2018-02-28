@@ -13,14 +13,6 @@ class App extends Component {
   };
 
   render = () => {
-    const MainRoute = ({
-      component: Component,
-      match,
-      location,
-      history,
-      ...rest
-    }) => <Route {...rest} render={props => <PostsList {...props} />} />;
-
     // Credit to Todd Chaffee for the renderMergedProps and PropsRoute
     // implementation (https://github.com/ReactTraining/react-router/issues/4105)
     const renderMergedProps = (component, ...rest) => {

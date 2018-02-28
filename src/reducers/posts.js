@@ -41,13 +41,15 @@ const posts = (state = [], action) => {
       return posts;
     case RECEIVE_ADD_POST:
       // Update the state to add the new post
-      newState = state.splice(0);
-      return newState.push(post);
+      newState = state.slice(0);
+      newState.push(post);
+      return newState;
     case RECEIVE_UPDATE_POST:
       // Update the state to remove the existing copy of the specified
       // post and add the returned copy
       newState = state.filter(op => op.id !== post.id);
-      return newState.push(post);
+      newState.push(post);
+      return newState;
     case RECEIVE_DELETE_POST:
       // Update the state to remove the existing post as long
       // as the returned item shows deleted as being true

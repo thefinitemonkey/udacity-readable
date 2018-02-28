@@ -33,16 +33,19 @@ const comments = (state = [{}], action) => {
   switch (action.type) {
     case RECEIVE_GET_POST_COMMENTS:
       // Update the state to be the comments returned
-      return comments;
+      if (comments) return comments;
+      return state;
     case RECEIVE_ADD_POST_COMMENT:
       // Update the state to add the new comment
-      newState = state.splice(0);
-      return newState.push(comment);
+      newState = state.slice(0);
+      newState.push(comment);
+      return newState;
     case RECEIVE_UPDATE_COMMENT:
       // Update the state to remove the existing copy of the specified
       // comment and add the returned copy
       newState = state.filter(oc => oc.id !== comment.id);
-      return newState.push(comment);
+      newState.push(comment);
+      return newState;
     case RECEIVE_DELETE_COMMENT:
       // Update the state to remove the existing comment as long
       // as the returned item shows deleted or parentDeleted

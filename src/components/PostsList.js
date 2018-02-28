@@ -1,17 +1,18 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getAllPosts, getCategories, setSort } from "../actions/";
 import PostSummary from "./PostSummary";
+import EditDialog from "./EditDialog.js";
 
 class PostsList extends Component {
   state = {
-    category: (this.props.match && this.props.match.params.catname) || "all"
+    category: (this.props.match && this.props.match.params.catname) || "all",
+    isShowingModal: false,
+    modalAction: "default",
+    modalType: "",
+    modalItem: null
   };
-
-  componentDidMount = () => {
-    console.log("sort", this.props.sorts);
-  }
 
   handleChangeCategory = data => {
     this.props.history.push(`/category/${data}`);
@@ -20,6 +21,26 @@ class PostsList extends Component {
   handleChangeSort = data => {
     this.props.setSort(data);
   };
+
+  handleOpenDialogClick = (e, data) => {
+    e.preventDefault();
+    this.setState({
+      modalAction: data.action,
+      modalType: data.type,
+      modalItem: data.item,
+      isShowingModal: true
+    });
+  };
+
+  handleCloseDialog = () => {
+    this.setState({
+      modalAction: "",
+      modalType: "",
+      modalItem: null,
+      isShowingModal: false
+    });
+  };
+
 
   renderPosts = () => {
     // If not posts then return a null
@@ -40,7 +61,9 @@ class PostsList extends Component {
     let compare;
     let direction;
     direction =
-      this.props.sorts.sort === "dateUp" || this.props.sorts.sort === "voteUp" ? 1 : -1;
+      this.props.sorts.sort === "dateUp" || this.props.sorts.sort === "voteUp"
+        ? 1
+        : -1;
     compare =
       this.props.sorts.sort === "dateUp" || this.props.sorts.sort === "dateDown"
         ? "timestamp"
@@ -51,7 +74,7 @@ class PostsList extends Component {
       return 0;
     });
 
-    return posts.map(post => <PostSummary key={post.id} post={post} />);
+    return posts.map(post => <PostSummary key={post.id} post={post} handleEditClick={this.handleOpenDialogClick} />);
   };
 
   render = () => {
@@ -101,6 +124,20 @@ class PostsList extends Component {
           </div>
         </div>
         <div className="post-list">{this.renderPosts()}</div>
+        <div className="open-new-item">
+          <a
+            href="nowhere"
+            onClick={e =>
+              this.handleOpenDialogClick(e, { action: "add", type: "post" })
+            }
+          >
+            Create New Post
+          </a>
+        </div>
+        <EditDialog
+          {...this.state}
+          handleCloseDialog={this.handleCloseDialog}
+        />
       </div>
     );
   };
