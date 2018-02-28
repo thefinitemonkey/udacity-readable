@@ -1,14 +1,45 @@
+.app-header {
+  background-color: #2e7c31;
+}
+
+h1 {
+  margin: 0;
+  padding: 10px 30px 10px 30px;
+  color: white;
+  text-shadow: 2px 2px #444;
+}
+
+h2 {
+  margin: 0;
+}
+
+h3 {
+  margin: 0;
+  font-weight: normal;
+}
+
 .post-list {
   margin: 10px 15px 10px 15px;
 }
 
-.category-selector {
-  display:flex;
-  flex-direction: row-reverse;
+.posts-heading {
+  display: flex;
   margin: 10px 15px 25px 15px;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
 }
 
-.category-selector-label {
+.posts-selectors {
+  display: flex;
+}
+
+.posts-selector {
+  margin: 0 0 0 25px;
+}
+
+.category-selector-label,
+.category-sort-label {
   font-size: 0.8em;
   margin: 0 10px 0 0;
 }
@@ -35,13 +66,22 @@
 }
 
 .post-summary-line-2,
-.post-summary-line-3 {
+.post-summary-line-3,
+.post-summary-line-4 {
   padding: 0 15px 0 15px;
 }
 
 .post-summary-line-3 {
-  display: flex;
   margin: 10px 0 0 0;
+}
+
+.post-summary-line-4 {
+  margin: 0 0 0 0;
+}
+
+.post-summary-line-3,
+.post-summary-line-4 {
+  display: flex;
   justify-content: space-between;
   font-size: 0.8em;
   color: #777;

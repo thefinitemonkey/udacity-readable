@@ -1,26 +1,25 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getAllPosts, getCategories } from "../actions/";
+import { getAllPosts, getCategories, setSort } from "../actions/";
 import PostSummary from "./PostSummary";
 
 class PostsList extends Component {
-  state = { category: "all" };
+  state = {
+    category: (this.props.match && this.props.match.params.catname) || "all"
+  };
 
-  componentDidMount() {
-    this.props.allCategories();
-    this.props.allPosts();
-    console.log("props", this.props);
+  componentDidMount = () => {
+    console.log("sort", this.props.sorts);
   }
 
-  componentWillReceiveProps(props) {
-    this.props = props;
-    console.log("props updated", this.props);
-  }
+  handleChangeCategory = data => {
+    this.props.history.push(`/category/${data}`);
+  };
 
-  handleChangeCategory = data => withRouter(({history})=> {
-    this.setState({ category: data });
-  });
+  handleChangeSort = data => {
+    this.props.setSort(data);
+  };
 
   renderPosts = () => {
     // If not posts then return a null
@@ -37,30 +36,68 @@ class PostsList extends Component {
       );
     }
 
+    // Sort the posts based on the state sort selection
+    let compare;
+    let direction;
+    direction =
+      this.props.sorts.sort === "dateUp" || this.props.sorts.sort === "voteUp" ? 1 : -1;
+    compare =
+      this.props.sorts.sort === "dateUp" || this.props.sorts.sort === "dateDown"
+        ? "timestamp"
+        : "voteScore";
+    posts = posts.sort((a, b) => {
+      if (a[compare] * direction < b[compare] * direction) return -1;
+      if (a[compare] * direction > b[compare] * direction) return 1;
+      return 0;
+    });
+
     return posts.map(post => <PostSummary key={post.id} post={post} />);
   };
 
   render = () => {
     return (
       <div className="post-list">
-        <div className="category-selector">
+        <div className="posts-heading">
           <div>
-            <label className="category-selector-label" htmlFor="categorySelector">
-              Filter:
-            </label>
-            <select
-              id="categorySelector"
-              value={this.state.category}
-              onChange={e => this.handleChangeCategory(e.target.value)}
-            >
-              <option value="all">All</option>
-              {this.props.categories &&
-                this.props.categories.map(cat => (
-                  <option key={cat.name} value={cat.name}>
-                    {cat.name}
-                  </option>
-                ))}
-            </select>
+            <h2>Posts</h2>
+          </div>
+          <div className="posts-selectors">
+            <div className="posts-selector">
+              <label className="category-sort-label" htmlFor="categorySort">
+                Sort:
+              </label>
+              <select
+                id="categorySort"
+                value={this.props.sorts.sort}
+                onChange={e => this.handleChangeSort(e.target.value)}
+              >
+                <option value="dateUp">Date (ascending)</option>
+                <option value="dateDown">Date (descending)</option>
+                <option value="voteUp">Votes (ascending)</option>
+                <option value="voteDown">Votes (descending)</option>
+              </select>
+            </div>
+            <div className="posts-selector">
+              <label
+                className="category-selector-label"
+                htmlFor="categorySelector"
+              >
+                Filter:
+              </label>
+              <select
+                id="categorySelector"
+                value={this.state.category}
+                onChange={e => this.handleChangeCategory(e.target.value)}
+              >
+                <option value="all">All</option>
+                {this.props.categories &&
+                  this.props.categories.map(cat => (
+                    <option key={cat.name} value={cat.name}>
+                      {cat.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
         </div>
         <div className="post-list">{this.renderPosts()}</div>
@@ -69,15 +106,18 @@ class PostsList extends Component {
   };
 }
 
-function mapStateToProps({ posts, categories, match, location, history }) {
-  return { posts, categories: categories.categories.categories, match, location, history };
+function mapStateToProps({ posts, categories, sorts }) {
+  return { posts, categories: categories.categories, sorts };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     allPosts: () => dispatch(getAllPosts()),
-    allCategories: () => dispatch(getCategories())
+    allCategories: () => dispatch(getCategories()),
+    setSort: data => dispatch(setSort(data))
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostsList));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(PostsList)
+);

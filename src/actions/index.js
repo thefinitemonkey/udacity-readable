@@ -1,6 +1,7 @@
 import * as Api from "../util/Api.js";
 
 export const RECEIVE_GET_CATEGORIES = "RECEIVE_GET_CATEGORIES";
+export const SET_SORT = "SET_SORT";
 export const RECEIVE_GET_CATEGORY_POSTS = "RECEIVE_GET_CATEGORY_POSTS";
 export const RECEIVE_GET_ALL_POSTS = "RECEIVE_GET_ALL_POSTS";
 export const RECEIVE_ADD_POST = "RECEIVE_GET_ALL_POSTS";
@@ -23,6 +24,13 @@ export const receiveGetCategories = categories => {
     categories
   };
 };
+
+export const setSort = sort => {
+  return {
+    type: SET_SORT,
+    sort
+  }
+}
 
 export const getCategoryPosts = category => dispatch => {
   Api.getCategoryPosts(category).then(posts =>
