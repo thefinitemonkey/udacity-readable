@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getAllPosts, getCategories, setSort } from "../actions/";
+import { getAllPosts, getCategories, setSort, deletePost } from "../actions/";
 import PostSummary from "./PostSummary";
 import EditDialog from "./EditDialog.js";
 
@@ -22,6 +22,16 @@ class PostsList extends Component {
     this.props.setSort(data);
   };
 
+  handleDeleteClick = (e, post) => {
+    e.preventDefault();
+    this.props.deletePost(post.id);
+  };
+
+  handlePostClick = (e, post) => {
+    e.preventDefault();
+    this.props.history.push(`/post/${post.id}`);
+  };
+
   handleOpenDialogClick = (e, data) => {
     e.preventDefault();
     this.setState({
@@ -40,7 +50,6 @@ class PostsList extends Component {
       isShowingModal: false
     });
   };
-
 
   renderPosts = () => {
     // If not posts then return a null
@@ -74,7 +83,15 @@ class PostsList extends Component {
       return 0;
     });
 
-    return posts.map(post => <PostSummary key={post.id} post={post} handleEditClick={this.handleOpenDialogClick} />);
+    return posts.map(post => (
+      <PostSummary
+        key={post.id}
+        post={post}
+        handleEditClick={this.handleOpenDialogClick}
+        handleDeleteClick={this.handleDeleteClick}
+        handlePostClick={this.handlePostClick}
+      />
+    ));
   };
 
   render = () => {
@@ -128,7 +145,11 @@ class PostsList extends Component {
           <a
             href="nowhere"
             onClick={e =>
-              this.handleOpenDialogClick(e, { action: "add", type: "post" })
+              this.handleOpenDialogClick(e, {
+                action: "add",
+                type: "post",
+                item: null
+              })
             }
           >
             Create New Post
@@ -151,7 +172,8 @@ function mapDispatchToProps(dispatch) {
   return {
     allPosts: () => dispatch(getAllPosts()),
     allCategories: () => dispatch(getCategories()),
-    setSort: data => dispatch(setSort(data))
+    setSort: data => dispatch(setSort(data)),
+    deletePost: id => dispatch(deletePost(id))
   };
 }
 

@@ -21,7 +21,8 @@ h3 {
 }
 
 .post-list {
-  margin: 0 15px 10px 15px;
+  margin: 0 5px 10px 5px;
+  padding: 5px 0 20px 0;
 }
 
 .posts-heading {
@@ -52,6 +53,15 @@ h3 {
 
 .post-summary {
   margin: 0 0 30px 0;
+}
+
+.post-summary-button {
+  border: none;
+  background: none;
+  width: 100%;
+  font-size: 1em;
+  text-align: left;
+  cursor: pointer;
 }
 
 .post-summary-line-1 {
@@ -95,6 +105,14 @@ h3 {
   color: #777;
 }
 
+.post-edit-controls {
+  display: flex;
+}
+
+.post-edit-controls .post-delete {
+  margin: 0 0 0 25px;
+}
+
 .post-summary-line-3-vote-container {
   margin: 0 0 0 150px;
 }
@@ -115,10 +133,12 @@ h3 {
 
 .post-vote-score button {
   font-size: 1.2em;
+  cursor: pointer;
 }
 
 .post-vote-score button {
   padding: 5px 10px;
+  cursor: pointer;
 }
 
 .edit-link {
@@ -136,11 +156,11 @@ h3 {
   height: 50px;
   border-radius: 50%;
   background: #2e7d32;
-  background-image: url('./icons/add.svg');
+  background-image: url("./icons/add.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   font-size: 0;
 }
 
@@ -154,4 +174,51 @@ h3 {
   display: inline-block;
   font-size: 0.8em;
   cursor: pointer;
+}
+
+.post-details {
+  margin: 0 30px 0 30px;
+}
+
+.post-details-heading {
+  padding: 10px 0 25px 0;
+  position: sticky;
+  top: 57px;
+  background: white;
+}
+
+.post-details-heading .post-details-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 0 15px 0;
+}
+
+.post-details-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: calc(100% - 35px);
+}
+
+.post-details-info .post-author {
+  font-size: 1.2em;
+}
+
+.post-details-info .post-edit-controls {
+  font-size: 0.8em;
+}
+
+.close-details {
+  display: block;
+  width: 20px;
+  height: 28px;
+  background: white;
+  background-image: url('./icons/arrow-back.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 28px;
+  font-size: 0;
+  margin: 0 15px 0 0;
 }

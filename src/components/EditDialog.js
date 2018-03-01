@@ -11,17 +11,24 @@ class EditDialog extends Component {
       (this.props.modalItem && this.props.modalItem.category) ||
       this.props.match.params.catname ||
       "none",
-    item: { ...this.props.modalItem } || {}
+    modalItem: { ...this.props.modalItem } || {
+      author: "",
+      title: "",
+      body: ""
+    }
   };
 
   componentWillReceiveProps(props) {
     this.props = props;
     let catname = "none";
     if (this.props.modalItem) catname = this.props.modalItem.category;
+    const newItem = !this.props.modalItem
+      ? { author: "", title: "", body: "" }
+      : { ...this.props.modalItem };
     this.setState({
       isShowingModal: this.props.isShowingModal,
       category: catname,
-      modalItem: { ...this.props.modalItem },
+      modalItem: newItem,
       modalAction: this.props.modalAction,
       modalType: this.props.modalType
     });
@@ -74,6 +81,8 @@ class EditDialog extends Component {
       const actionObj = { body };
       this.props.editComment(actionObj);
     }
+
+    this.handleClose();
   };
 
   render = () => {
@@ -89,39 +98,41 @@ class EditDialog extends Component {
             <ModalDialog onClose={this.handleClose}>
               <div>
                 <h2>{`${dispAction} ${dispType}`}</h2>
-                <div>
+                {modalType !== "comment" && (
                   <div>
-                    <label
-                      className="category-selector-label"
-                      htmlFor="categorySelector"
-                    >
-                      Category:
-                    </label>
-                    {category === "none" || category === "all" ? (
-                      <select
-                        id="categorySelector"
-                        value={this.state.category}
-                        onChange={e =>
-                          this.handleChangeCategory(e.target.value)
-                        }
+                    <div>
+                      <label
+                        className="category-selector-label"
+                        htmlFor="categorySelector"
                       >
-                        {this.props.categories &&
-                          this.props.categories.map(cat => (
-                            <option key={cat.name} value={cat.name}>
-                              {cat.name}
-                            </option>
-                          ))}
-                      </select>
-                    ) : (
-                      <span
-                        id="categorySelector"
-                        className="default-category-selection"
-                      >
-                        {category}
-                      </span>
-                    )}
+                        Category:
+                      </label>
+                      {category === "none" || category === "all" ? (
+                        <select
+                          id="categorySelector"
+                          value={this.state.category}
+                          onChange={e =>
+                            this.handleChangeCategory(e.target.value)
+                          }
+                        >
+                          {this.props.categories &&
+                            this.props.categories.map(cat => (
+                              <option key={cat.name} value={cat.name}>
+                                {cat.name}
+                              </option>
+                            ))}
+                        </select>
+                      ) : (
+                        <span
+                          id="categorySelector"
+                          className="default-category-selection"
+                        >
+                          {category}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
                 <div>
                   <input
                     type="text"
@@ -150,7 +161,10 @@ class EditDialog extends Component {
                   />
                 </div>
                 <div>
-                  <button className="save-button" onClick={this.handleSaveChanges}>
+                  <button
+                    className="save-button"
+                    onClick={this.handleSaveChanges}
+                  >
                     Save changes
                   </button>
                 </div>

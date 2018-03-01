@@ -8,32 +8,50 @@ class PostSummary extends Component {
 
     return (
       <div className="post-summary">
-        <div className="post-summary-line-1">
-          <div className="post-title">
-            <h3>{post.title}</h3>
-          </div>
-          <div className="post-author">{post.author}</div>
-        </div>
-        <div className="post-summary-line-2">
-          <div className="post-body">{post.body}</div>
+        <div>
+          <button
+            className="post-summary-button"
+            onClick={e => this.props.handlePostClick(e, post)}
+          >
+            <div className="post-summary-line-1">
+              <div className="post-title">
+                <h3>{post.title}</h3>
+              </div>
+              <div className="post-author">{post.author}</div>
+            </div>
+            <div className="post-summary-line-2">
+              <div className="post-body">{post.body}</div>
+            </div>
+          </button>
         </div>
         <div className="post-summary-line-3">
           <div className="post-summary-line-3-container">
-            <div className="post-last-edit">
-              <a
-                href="nowhere"
-                className="edit-link"
-                onClick={e =>
-                  this.props.handleEditClick(e, {
-                    action: "edit",
-                    type: "post",
-                    item: post
-                  })
-                }
-              >
-                Edited&nbsp;
-              </a>
-              {displayDate.toLocaleString()}
+            <div className="post-edit-controls">
+              <div className="post-last-edit">
+                <a
+                  href="nowhere"
+                  className="edit-link"
+                  onClick={e =>
+                    this.props.handleEditClick(e, {
+                      action: "edit",
+                      type: "post",
+                      item: post
+                    })
+                  }
+                >
+                  {`Edited - `}
+                </a>
+                {displayDate.toLocaleString()}
+              </div>
+              <div className="post-delete">
+                <a
+                  href="nowhere"
+                  className="edit-link"
+                  onClick={e => this.props.handleDeleteClick(e, post)}
+                >
+                  Delete
+                </a>
+              </div>
             </div>
             <div className="post-comment-count">{`Comments: ${
               post.commentCount

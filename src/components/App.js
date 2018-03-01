@@ -38,7 +38,7 @@ class App extends Component {
         </div>
         <PropsRoute exact path="/" component={PostsList} />
         <PropsRoute exact path="/category/:catname" component={PostsList} />
-        <PropsRoute exact path="/post" component={PostDetails} />
+        <PropsRoute exact path="/post/:id" component={PostDetails} />
       </div>
     );
   };
