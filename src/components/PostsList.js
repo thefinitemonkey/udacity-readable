@@ -6,6 +6,8 @@ import PostSummary from "./PostSummary";
 import EditDialog from "./EditDialog.js";
 
 class PostsList extends Component {
+  // Set the intitial state, including pulling the filter category from
+  // the react-router match property
   state = {
     category: (this.props.match && this.props.match.params.category) || "none",
     isShowingModal: false,
@@ -15,24 +17,33 @@ class PostsList extends Component {
   };
 
   handleChangeCategory = data => {
+    // Change the category by updating the URL
     this.props.history.push(`/${data}`);
   };
 
   handleChangeSort = data => {
+    // Set the sort state in Redux so it will
+    // be available after leaving the page
     this.props.setSort(data);
   };
 
   handleDeleteClick = (e, post) => {
+    // Prevent default behavior and dispatch
+    // the delete action
     e.preventDefault();
     this.props.deletePost(post.id);
   };
 
   handlePostClick = (e, post) => {
+    // Prevent default behavior and update the URL
+    // to navigate to the post
     e.preventDefault();
     this.props.history.push(`/${this.state.category}/${post.id}`);
   };
 
   handleOpenDialogClick = (e, data) => {
+    // Prevent the default behavior and set the component
+    // state for the dialog
     e.preventDefault();
     this.setState({
       modalAction: data.action,
@@ -43,6 +54,7 @@ class PostsList extends Component {
   };
 
   handleCloseDialog = () => {
+    // Reset the component state for the dialog
     this.setState({
       modalAction: "",
       modalType: "",
@@ -83,6 +95,7 @@ class PostsList extends Component {
       return 0;
     });
 
+    // Return the sorted, filtered listing of posts
     return posts.map(post => (
       <PostSummary
         key={post.id}

@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 class EditDialog extends Component {
+  // Set up the initial state for the dialog, including category
+  // selection default and default state for edit / add of a 
+  // post / comment
   state = {
     isShowingModal: this.props.isShowingModal || false,
     category:
@@ -19,6 +22,7 @@ class EditDialog extends Component {
   };
 
   componentWillReceiveProps(props) {
+    // Update the dialog state based on the received props
     this.props = props;
     let catname = "none";
     if (this.props.modalItem) catname = this.props.modalItem.category;
@@ -86,6 +90,7 @@ class EditDialog extends Component {
   };
 
   render = () => {
+    // Set some values for use in rendering the display
     let { modalItem, modalType, modalAction } = this.state;
     const dispAction = modalAction === "edit" ? "Edit" : "Add";
     const dispType = modalType === "post" ? "Post" : "Comment";

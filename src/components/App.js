@@ -8,6 +8,8 @@ import { getAllPosts, getCategories } from "../actions/";
 
 class App extends Component {
   componentDidMount = () => {
+    // Request the categories and posts for display and use through
+    // the Redux state
     this.props.allCategories();
     this.props.allPosts();
   };

@@ -3,6 +3,8 @@ import VotesDisplay from "./VotesDisplay";
 
 class Comment extends Component {
   render = () => {
+    // Set values for use in rendering, including class name for alternating
+    // background color on comments
     const comment = this.props.comment;
     const displayDate = new Date(comment.timestamp);
     const index = this.props.index || 0;

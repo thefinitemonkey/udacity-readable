@@ -3,6 +3,7 @@ import VotesDisplay from "./VotesDisplay";
 
 class PostSummary extends Component {
   render = () => {
+    // Grab the post and the timestamp for display use
     const post = this.props.post;
     const displayDate = new Date(post.timestamp);
 

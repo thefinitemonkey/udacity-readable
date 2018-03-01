@@ -40,6 +40,8 @@ class PostDetails extends Component {
   };
 
   handleOpenDialogClick = (e, data) => {
+    // Prevent the default action and create the appropriate
+    // default item data for the dialog
     e.preventDefault();
     if (data.action === "add" && data.type === "comment")
       data.item = {
@@ -48,6 +50,7 @@ class PostDetails extends Component {
         body: "",
         parentId: this.state.post.id
       };
+    // Set the state for holding the dialog data
     this.setState({
       modalAction: data.action,
       modalType: data.type,
@@ -57,6 +60,7 @@ class PostDetails extends Component {
   };
 
   handleCloseDialog = () => {
+    // Reset the state for the dialog data
     this.setState({
       modalAction: "",
       modalType: "",
@@ -66,11 +70,15 @@ class PostDetails extends Component {
   };
 
   handleDeletePostClick = (e, post) => {
+    // Prevent the default behavior and dispatch the
+    // delete for the post
     e.preventDefault();
     this.props.deletePost(post.id);
   };
 
   handleDeleteCommentClick = (e, comment) => {
+    // Prevent the default behavior and dispatch the
+    // delete for the comment
     e.preventDefault();
     this.props.deleteComment(comment.id);
   };
@@ -104,6 +112,8 @@ class PostDetails extends Component {
         })}
       </div>
     );
+
+    // Sort the comments newest first for the post
     let comments = this.props.comments.slice(0);
     comments = comments.sort((a, b) => {
       if (a.timestamp > b.timestamp) return -1;

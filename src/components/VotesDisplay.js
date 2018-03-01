@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 
 class VotesDisplay extends Component {
   handleVoteClick = direction => {
+    // Dispatch the proper action with values depending on if
+    // this is voting for a post or comment
     if (this.props.voteType === "post")
       this.props.votePost({ id: this.props.item.id, option: direction });
     if (this.props.voteType === "comment")
@@ -27,12 +29,6 @@ class VotesDisplay extends Component {
     );
   };
 }
-
-/*
-function mapStateToProps({}) {
-  return {};
-}
-*/
 
 function mapDispatchToProps(dispatch) {
   return {
