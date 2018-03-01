@@ -99,7 +99,7 @@ class EditDialog extends Component {
               <div>
                 <h2>{`${dispAction} ${dispType}`}</h2>
                 {modalType !== "comment" && (
-                  <div>
+                  <div className="dialog-category-selector">
                     <div>
                       <label
                         className="category-selector-label"
@@ -133,7 +133,7 @@ class EditDialog extends Component {
                     </div>
                   </div>
                 )}
-                <div>
+                <div className="dialog-author">
                   <input
                     type="text"
                     id="author"
@@ -143,7 +143,7 @@ class EditDialog extends Component {
                   />
                 </div>
                 {modalType !== "comment" && (
-                  <div>
+                  <div className="dialog-title">
                     <input
                       type="text"
                       id="title"
@@ -153,7 +153,7 @@ class EditDialog extends Component {
                     />
                   </div>
                 )}
-                <div>
+                <div className="dialog-body">
                   <textarea
                     id="body"
                     rows="5"
@@ -162,7 +162,7 @@ class EditDialog extends Component {
                     onChange={e => this.handleBodyChange(e.target.value)}
                   />
                 </div>
-                <div>
+                <div className="dialog-save-button">
                   <button
                     className="save-button"
                     onClick={this.handleSaveChanges}

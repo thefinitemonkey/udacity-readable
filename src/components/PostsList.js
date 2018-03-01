@@ -7,7 +7,7 @@ import EditDialog from "./EditDialog.js";
 
 class PostsList extends Component {
   state = {
-    category: (this.props.match && this.props.match.params.category) || "all",
+    category: (this.props.match && this.props.match.params.category) || "none",
     isShowingModal: false,
     modalAction: "default",
     modalType: "",
@@ -61,9 +61,9 @@ class PostsList extends Component {
     if (this.state.category === "" || this.state.category === "all") {
       posts = this.props.posts.slice(0);
     } else {
-      posts = this.props.posts.slice(0).filter(
-        post => post.category === this.state.category
-      );
+      posts = this.props.posts
+        .slice(0)
+        .filter(post => post.category === this.state.category);
     }
 
     // Sort the posts based on the state sort selection
@@ -95,6 +95,11 @@ class PostsList extends Component {
   };
 
   render = () => {
+    console.log("category", this.state.category);
+    // Create a default new post item to use for clicking the new post button
+    const catname = this.state.category;
+    const defaultNewPost = { category: catname, author: "", title: "", body: "" }
+
     return (
       <div className="post-list">
         <div className="posts-heading">
@@ -148,7 +153,7 @@ class PostsList extends Component {
               this.handleOpenDialogClick(e, {
                 action: "add",
                 type: "post",
-                item: null
+                item: defaultNewPost
               })
             }
           >
