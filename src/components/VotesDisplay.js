@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { votePost, voteComment } from "../actions";
+import { votePost, voteComment, getPost } from "../actions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -32,6 +32,7 @@ class VotesDisplay extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getPost: id => dispatch(getPost(id)),
     votePost: data => dispatch(votePost(data)),
     voteComment: data => dispatch(voteComment(data))
   };

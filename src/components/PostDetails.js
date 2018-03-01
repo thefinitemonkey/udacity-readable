@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { deletePost, getPostComments, deleteComment } from "../actions/";
+import { deletePost, getPost, getPostComments, deleteComment } from "../actions/";
 import EditDialog from "./EditDialog.js";
 import Comment from "./Comment.js";
 import VotesDisplay from "./VotesDisplay.js";
@@ -216,6 +216,7 @@ function mapStateToProps({ posts, comments }) {
 function mapDispatchToProps(dispatch) {
   return {
     deletePost: id => dispatch(deletePost(id)),
+    getPost: id => dispatch(getPost(id)),
     getPostComments: id => dispatch(getPostComments(id)),
     deleteComment: id => dispatch(deleteComment(id))
   };

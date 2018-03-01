@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ModalContainer, ModalDialog } from "react-modal-dialog";
-import { addPost, editPost, addPostComment, editComment } from "../actions";
+import { getPost, addPost, editPost, addPostComment, editComment } from "../actions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -77,6 +77,7 @@ class EditDialog extends Component {
     ) {
       const actionObj = { parentId, body, author };
       this.props.addPostComment(actionObj);
+      this.props.getPost(parentId);
     }
     if (
       this.state.modalType === "comment" &&
@@ -190,6 +191,7 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    getPost: id => dispatch(getPost(id)),
     addPost: data => dispatch(addPost(data)),
     editPost: data => dispatch(editPost(data)),
     addPostComment: data => dispatch(addPostComment(data)),
