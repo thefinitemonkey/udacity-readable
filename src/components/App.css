@@ -210,6 +210,40 @@ h3 {
   font-size: 0.8em;
 }
 
+.post-details-body {
+  padding: 0 0 20px 0;
+  border-bottom: black 1px solid;
+}
+
+.post-details-vote-container {
+  font-size: 0.8em;
+  display: flex;
+  justify-content: flex-end;
+  margin: 15px 0 0 0;
+}
+
+.post-comments {
+  margin: 20px 0 0 0;
+}
+
+.post-comments h3 {
+  font-weight: bold;
+  margin: 0 0 15px 0;
+}
+
+.comment-display {
+  margin: 0 0 40px 0;
+}
+
+.comment-display .post-summary-line-2,
+.comment-display .post-summary-line-3 {
+  padding: 0;
+}
+
+.comment-display .post-author {
+  margin: 0 25px 0 0;
+}
+
 .close-details {
   display: block;
   width: 20px;

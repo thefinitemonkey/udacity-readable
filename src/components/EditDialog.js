@@ -78,7 +78,7 @@ class EditDialog extends Component {
       this.state.modalType === "comment" &&
       this.state.modalAction === "edit"
     ) {
-      const actionObj = { body };
+      const actionObj = { id, title, body };
       this.props.editComment(actionObj);
     }
 
@@ -142,15 +142,17 @@ class EditDialog extends Component {
                     onChange={e => this.handleAuthorChange(e.target.value)}
                   />
                 </div>
-                <div>
-                  <input
-                    type="text"
-                    id="title"
-                    value={modalItem && modalItem.title}
-                    placeholder="Title"
-                    onChange={e => this.handleTitleChange(e.target.value)}
-                  />
-                </div>
+                {modalType !== "comment" && (
+                  <div>
+                    <input
+                      type="text"
+                      id="title"
+                      value={modalItem && modalItem.title}
+                      placeholder="Title"
+                      onChange={e => this.handleTitleChange(e.target.value)}
+                    />
+                  </div>
+                )}
                 <div>
                   <textarea
                     id="body"

@@ -24,7 +24,7 @@ Populated state for comments looks like
 }]
 */
 
-const comments = (state = [{}], action) => {
+const comments = (state = [], action) => {
   // Actions will only ever return "comments" or "comment" properties,
   // and never both at the same time
   const { comments, comment } = action;
