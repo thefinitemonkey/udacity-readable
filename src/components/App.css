@@ -224,6 +224,7 @@ h3 {
 
 .post-comments {
   margin: 20px 0 0 0;
+  padding: 0 0 60px 0;
 }
 
 .post-comments h3 {
@@ -232,9 +233,13 @@ h3 {
 }
 
 .comment-display {
-  margin: 0 0 40px 0;
+  margin: 0 -10px 20px -10px;
+  padding: 10px;
 }
 
+.comment-display-odd {
+  background-color: #eee;
+}
 .comment-display .post-summary-line-2,
 .comment-display .post-summary-line-3 {
   padding: 0;
@@ -249,10 +254,37 @@ h3 {
   width: 20px;
   height: 28px;
   background: white;
-  background-image: url('./icons/arrow-back.svg');
+  background-image: url("./icons/arrow-back.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 28px;
   font-size: 0;
   margin: 0 15px 0 0;
+}
+
+.no-post {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 2em;
+  color: #777;
+}
+
+.no-post-link {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.no-post-link a {
+  font-size: 0.75em;
+}
+
+a:hover,
+a:visited,
+a {
+  color: rgb(54, 54, 230);
+  text-decoration-line: none;
 }

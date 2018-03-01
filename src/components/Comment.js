@@ -5,9 +5,11 @@ class Comment extends Component {
   render = () => {
     const comment = this.props.comment;
     const displayDate = new Date(comment.timestamp);
+    const index = this.props.index || 0;
+    const oddEven = (index % 2 === 0) ? "comment-display-even" : "comment-display-odd";
 
     return (
-      <div className="comment-display">
+      <div className={`comment-display ${oddEven}`}>
         <div>
           <div className="post-summary-line-2">
             <div className="post-body">{comment.body}</div>

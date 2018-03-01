@@ -7,7 +7,7 @@ import EditDialog from "./EditDialog.js";
 
 class PostsList extends Component {
   state = {
-    category: (this.props.match && this.props.match.params.catname) || "all",
+    category: (this.props.match && this.props.match.params.category) || "all",
     isShowingModal: false,
     modalAction: "default",
     modalType: "",
@@ -15,7 +15,7 @@ class PostsList extends Component {
   };
 
   handleChangeCategory = data => {
-    this.props.history.push(`/category/${data}`);
+    this.props.history.push(`/${data}`);
   };
 
   handleChangeSort = data => {
@@ -29,7 +29,7 @@ class PostsList extends Component {
 
   handlePostClick = (e, post) => {
     e.preventDefault();
-    this.props.history.push(`/post/${post.id}`);
+    this.props.history.push(`/${this.state.category}/${post.id}`);
   };
 
   handleOpenDialogClick = (e, data) => {
@@ -59,9 +59,9 @@ class PostsList extends Component {
     // it for display
     let posts;
     if (this.state.category === "" || this.state.category === "all") {
-      posts = this.props.posts;
+      posts = this.props.posts.slice(0);
     } else {
-      posts = this.props.posts.filter(
+      posts = this.props.posts.slice(0).filter(
         post => post.category === this.state.category
       );
     }

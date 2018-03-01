@@ -13,7 +13,8 @@ class PostDetails extends Component {
     modalAction: "",
     modalType: "",
     modalItem: null,
-    post: null
+    post: null,
+    prevPath: "/"
   };
 
   componentDidMount = () => {
@@ -22,10 +23,20 @@ class PostDetails extends Component {
 
     // Set some initial state, including the post we're looking at,
     // and get all the comments for the post
-    const id = this.props.match.params.id;
+    const id = this.props.match.params.post;
     const post = this.props.posts.filter(post => post.id === id)[0];
-    this.setState({ category: post.category, post: post });
-    this.props.getPostComments(post.id);
+    const catname = (post && post.category) || "none";
+    this.setState({ category: catname, post: post });
+    if (post && post.id) this.props.getPostComments(post.id);
+  };
+
+  handleNavBack = e => {
+    // Navigate back to the main page with the category from
+    // the current location url
+    e.preventDefault();
+    this.props.history.push(
+      this.state.prevPath + this.props.match.params.category
+    );
   };
 
   handleOpenDialogClick = (e, data) => {
@@ -65,26 +76,53 @@ class PostDetails extends Component {
   };
 
   render = () => {
-    console.log("render prop", this.props);
-
     // Get the one post from the id in the route match
-    const id = this.props.match.params.id;
+    const id = this.props.match.params.post;
     const post = this.props.posts.filter(post => post.id === id)[0];
 
     // If the post does not exist then give a friendly message
-    if (!post) return <div>This post does not exist</div>;
+    if (!post)
+      return (
+        <div className="no-post">
+          <div>
+            <div>This post does not exist</div>
+            <div className="no-post-link">
+              <a href="nowhere" onClick={e => this.handleNavBack(e)}>
+                Go Back
+              </a>
+            </div>
+          </div>
+        </div>
+      );
 
     // Lay out the details for the post
     const displayDate = new Date(post.timestamp);
+    const body = (
+      <div>
+        {post.body.split("\n").map((p, i) => {
+          return <p key={i}>{p}</p>;
+        })}
+      </div>
+    );
+    let comments = this.props.comments.slice(0);
+    comments = comments.sort((a, b) => {
+      if (a.timestamp > b.timestamp) return -1;
+      if (a.timestamp < b.timestamp) return 1;
+      return 0;
+    });
 
     return (
       <div className="post-details">
         <div className="post-details-heading">
           <div className="post-details-title">
             <div>
-              <Link className="close-details" to="/">
+              <a
+                href="nowhere"
+                className="close-details"
+                onClick={e => this.handleNavBack(e)}
+              >
                 Close
-              </Link>
+              </a>
             </div>
             <div className="post-details-info">
               <div className="post-author">{`Author - ${post.author}`}</div>
@@ -122,7 +160,7 @@ class PostDetails extends Component {
           </div>
         </div>
         <div className="post-details-body">
-          <div>{post.body}</div>
+          <div>{body}</div>
           <div className="post-details-vote-container">
             <VotesDisplay item={post} voteType={"post"} />
           </div>
@@ -132,9 +170,10 @@ class PostDetails extends Component {
           <h3>
             <strong>Comments</strong>
           </h3>
-          {this.props.comments.map(comment => (
+          {comments.map((comment, index) => (
             <Comment
               key={comment.id}
+              index={index}
               comment={comment}
               handleEditClick={this.handleOpenDialogClick}
               handleDeleteCommentClick={this.handleDeleteCommentClick}
