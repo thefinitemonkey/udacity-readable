@@ -282,6 +282,18 @@ h3 {
   font-size: 0.75em;
 }
 
+.dialog-save-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-category-selector,
+.dialog-author,
+.dialog-title,
+.dialog-body {
+  margin: 0 0 10px 0;
+}
+
 a:hover,
 a:visited,
 a {
