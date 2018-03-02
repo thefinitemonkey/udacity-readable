@@ -77,7 +77,6 @@ class EditDialog extends Component {
     ) {
       const actionObj = { parentId, body, author };
       this.props.addPostComment(actionObj);
-      this.props.getPost(parentId);
     }
     if (
       this.state.modalType === "comment" &&

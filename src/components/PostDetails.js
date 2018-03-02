@@ -81,7 +81,6 @@ class PostDetails extends Component {
     // delete for the comment
     e.preventDefault();
     this.props.deleteComment(comment.id);
-    this.props.getPost(comment.parentId);
   };
 
   render = () => {

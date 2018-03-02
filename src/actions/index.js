@@ -116,6 +116,7 @@ export const addPostComment = body => dispatch => {
 };
 
 export const receiveAddPostComment = comment => {
+  getPost(comment.parentId);
   return {
     type: RECEIVE_ADD_POST_COMMENT,
     comment
@@ -146,6 +147,7 @@ export const deleteComment = id => dispatch => {
 }
 
 export const receiveDeleteComment = comment => {
+  getPost(comment.parentId);
   return {
     type: RECEIVE_DELETE_COMMENT,
     comment
