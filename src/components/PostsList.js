@@ -9,7 +9,7 @@ class PostsList extends Component {
   // Set the intitial state, including pulling the filter category from
   // the react-router match property
   state = {
-    category: (this.props.match && this.props.match.params.category) || "none",
+    category: (this.props.match && this.props.match.params.category) || "all",
     isShowingModal: false,
     modalAction: "default",
     modalType: "",
